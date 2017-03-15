@@ -5,9 +5,22 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-5.times do {
+5.times do
   Restaurant.create({
-    name:Faker::hipster.sentence(3),
-
+    name:Faker::Pokemon.name,
+    address:Faker::Address.street_address,
+    phone_number:Faker::PhoneNumber.phone_number,
+    category:["chinese", "italian", "japanese", "french", "belgian"].sample
     })
-}
+end
+
+restaurants = Restaurant.all
+
+5.times do
+  restaurants.each do |restaurant|
+    restaurant.reviews.create({
+      content:Faker::TwinPeaks.quote,
+      rating:(0..5).to_a.sample
+    })
+  end
+end
